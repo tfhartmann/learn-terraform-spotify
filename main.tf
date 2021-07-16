@@ -16,23 +16,36 @@ provider "spotify" {
 }
 
 resource "spotify_playlist" "playlist" {
-  name        = "Terraform Summer Playlist"
+  name        = "Flowers of LV-426"
   description = "This playlist was created by Terraform"
   public      = true
 
   tracks = [
-    data.spotify_search_track.by_artist.tracks[0].id,
-    data.spotify_search_track.by_artist.tracks[1].id,
-    data.spotify_search_track.by_artist.tracks[2].id,
+    data.spotify_search_track.robot.tracks[0].id,
+    data.spotify_search_track.ghost.tracks[0].id,
+    data.spotify_search_track.vnv.tracks[0].id,
+    data.spotify_search_track.vnv.tracks[1].id,
   ]
 }
 
-data "spotify_search_track" "by_artist" {
-  artists = ["Dolly Parton"]
+data "spotify_search_track" "ghost" {
+  #  artists = ["Chrysalis"]
   #  album = "Jolene"
-  #  name  = "Early Morning Breeze"
+  name  = "lithium flower"
+}
+
+data "spotify_search_track" "robot" {
+  #  artists = ["Chrysalis"]
+  #  album = "Jolene"
+    name  = "I Am Robot Hear Me Glitch"
+}
+
+data "spotify_search_track" "vnv" {
+    artists = ["VNV Nation"]
+  #  album = "Jolene"
+  # name  = "I Am Robot Hear Me Glitch"
 }
 
 output "tracks" {
-  value = data.spotify_search_track.by_artist.tracks
+  value = [data.spotify_search_track.robot.tracks, data.spotify_search_track.ghost.tracks, data.spotify_search_track.vnv.tracks]
 }
